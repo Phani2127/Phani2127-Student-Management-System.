@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class SMS {
 	 private static final String DB_URL = "jdbc:mysql://localhost:3306/studentdb";
 	 private static final String USER = "root";
-	 private static final String PASS = "phani2127"; 
+	 private static final String PASS = "yourPassword"; 
 
 	 public static void main(String[] args) {
 	     try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -140,11 +140,11 @@ public class SMS {
 	 }
  }
  public static void searchStudentByName(Connection conn,Scanner sc) throws SQLException{
-	 String sql="select * from student where sname=?";
+	 String sql=" select * from student where sname like ?;";
 	 try(PreparedStatement pstmt = conn.prepareStatement(sql)){
-		 System.out.println("Enter student name : ");
+		 System.out.println("Enter a part or full name to search : ");
 		 String name=sc.nextLine();
-		 pstmt.setString(1, name);
+		 pstmt.setString(1, name+"%");
 		 ResultSet rs = pstmt.executeQuery();
 		 boolean hasStudent=false;
 			while(rs.next()) {
